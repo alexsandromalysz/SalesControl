@@ -56,7 +56,7 @@ end;
 procedure TFrmMunicipioListar.actExcluirExecute(Sender: TObject);
 begin
   inherited;
-  FController.Municipio.Build.Excluir('ID', GetID.ToString);
+  FController.Municipio.Build.Excluir('ID', GetID.ToString).Listar;
 end;
 
 procedure TFrmMunicipioListar.actFecharExecute(Sender: TObject);

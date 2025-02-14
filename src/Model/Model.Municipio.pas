@@ -16,16 +16,11 @@ uses
 type
   TModelMunicipio = class(TInterfacedObject, iModelMunicipio)
   private
-    FDAO: iSimpleDAO<TMUNICIPIO>;
-    FConn: iModelConnection;
   public
     constructor Create;
     destructor Destroy; override;
     class function New: iModelMunicipio;
-    function DAO: iSimpleDAO<TMUNICIPIO>;
   end;
-
-  TModelMunicipioList = TObjectList<TModelMunicipio>;
 
 implementation
 
@@ -36,13 +31,7 @@ uses
 
 constructor TModelMunicipio.Create;
 begin
-  FConn := TdmConnection.New;
-  FDAO := TSimpleDAO<TMUNICIPIO>.New(FConn.Conn);
-end;
 
-function TModelMunicipio.DAO: iSimpleDAO<TMUNICIPIO>;
-begin
-  Result := FDAO;
 end;
 
 destructor TModelMunicipio.Destroy;

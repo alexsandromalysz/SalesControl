@@ -3,50 +3,97 @@ unit Model.Resources.Connection;
 interface
 
 uses
-  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
-  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
-  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.VCLUI.Wait,
-  FireDAC.Phys.FBDef, FireDAC.Phys.IBBase, FireDAC.Phys.FB, FireDAC.Comp.UI,
-  Data.DB, FireDAC.Comp.Client, FireDAC.Phys.MSSQL, FireDAC.Phys.MSSQLDef,
-  Model.Resources.Interfaces, SimpleQueryFiredac, SimpleInterface;
+  System.SysUtils,
+  System.Classes,
+  FireDAC.Stan.Intf,
+  FireDAC.Stan.Option,
+  FireDAC.Stan.Error,
+  FireDAC.UI.Intf,
+  FireDAC.Phys.Intf,
+  FireDAC.Stan.Def,
+  FireDAC.Stan.Pool,
+  FireDAC.Stan.Async,
+  FireDAC.Phys,
+  FireDAC.VCLUI.Wait,
+  FireDAC.Phys.FBDef,
+  FireDAC.Phys.IBBase,
+  FireDAC.Phys.FB,
+  FireDAC.Comp.UI,
+  Data.DB,
+  FireDAC.Comp.Client,
+  FireDAC.Phys.MSSQL,
+  FireDAC.Phys.MSSQLDef,
+  FireDAC.VCLUI.ConnEdit,
+  SimpleQueryFiredac,
+  SimpleInterface,
+  Model.Resources.Interfaces;
 
 type
-  TdmConnection = class(TDataModule, iModelConnection)
-    FDConnection1: TFDConnection;
-    FDGUIxWaitCursor1: TFDGUIxWaitCursor;
-    FDPhysFBDriverLink1: TFDPhysFBDriverLink;
-    procedure DataModuleCreate(Sender: TObject);
-  private
-    { Private declarations }
-    FConn: iSimpleQuery;
-    function Conn: iSimpleQuery;
-  public
-    { Public declarations }
-    class function New: iModelConnection;
-  end;
+  TModelConnection = class(TInterfacedObject, iModelConnection)
+    private
+      FConnection: TFDConnection;
+      FSimpleConn: iSimpleQuery;
 
-var
-  dmConnection: TdmConnection;
+      procedure ShowConfig;
+    public
+      constructor Create;
+      destructor Destroy; override;
+      class function New: iModelConnection;
+      function Conn: iSimpleQuery;
+  end;
 
 implementation
 
-{%CLASSGROUP 'Vcl.Controls.TControl'}
+{ TModelConnection }
 
-{$R *.dfm}
-
-function TdmConnection.Conn: iSimpleQuery;
+function TModelConnection.Conn: iSimpleQuery;
 begin
-  Result := FConn;
+  Result := FSimpleConn;
 end;
 
-procedure TdmConnection.DataModuleCreate(Sender: TObject);
+constructor TModelConnection.Create;
 begin
-  FConn := TSimpleQueryFiredac.New(FDConnection1);
+  FConnection := TFDConnection.Create(nil);
+  FConnection.LoginPrompt := False;
+  FConnection.Params.Clear;
+  FConnection.Params.Add('DriverID=MSSQL');
+  FConnection.Params.Add('Server=.\sqlexpress');
+  FConnection.Params.Add('Database=sistema');
+  FConnection.Params.Add('User_Name=sa');
+  FConnection.Params.Add('Password=meupassword');
+  FConnection.Params.Add('OSAuthent=No');
+  FConnection.LoginPrompt := False;
+  try
+    FConnection.Connected := True;
+
+  except
+    ShowConfig;
+
+  end;
+  FSimpleConn := TSimpleQueryFiredac.New(FConnection);
 end;
 
-class function TdmConnection.New: iModelConnection;
+destructor TModelConnection.Destroy;
 begin
-  Result := Self.Create(nil);
+  FConnection.Free;
+  inherited;
+end;
+
+class function TModelConnection.New: iModelConnection;
+begin
+  Result := Self.Create;
+end;
+
+procedure TModelConnection.ShowConfig;
+var
+  FDConnEditor : TfrmFDGUIxFormsConnEdit;
+begin
+  FDConnEditor := TfrmFDGUIxFormsConnEdit.Create(nil);
+  try
+    FDConnEditor.Execute(FConnection,'Configurar conexão');
+  finally
+    FDConnEditor.Free;
+  end;
 end;
 
 end.

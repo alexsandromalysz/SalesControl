@@ -9,7 +9,6 @@ uses
   Model.Interfaces in 'src\Model\Model.Interfaces.pas',
   Model.Municipio in 'src\Model\Model.Municipio.pas',
   Model.Resources.Interfaces in 'src\Model\Resources\Model.Resources.Interfaces.pas',
-  Model.Resources.Connection in 'src\Model\Resources\Model.Resources.Connection.pas' {dmConnection: TDataModule},
   View.Default.PadraoListar in 'src\View\Default\View.Default.PadraoListar.pas' {FrmPadraoListar},
   View.MunicipioListar in 'src\View\View.MunicipioListar.pas' {FrmMunicipioListar},
   View.Default.PadraoEditar in 'src\View\Default\View.Default.PadraoEditar.pas' {FrmPadraoEditar},
@@ -17,7 +16,8 @@ uses
   View.Main in 'src\View\View.Main.pas' {FrmMain},
   View.Routers in 'src\View\Routers\View.Routers.pas',
   View.HomePage in 'src\View\View.HomePage.pas' {FrmHomePage},
-  Model.Resources.Service in 'src\Model\Resources\Model.Resources.Service.pas';
+  Model.Resources.Service in 'src\Model\Resources\Model.Resources.Service.pas',
+  Model.Resources.Connection in 'src\Model\Resources\Model.Resources.Connection.pas';
 
 {$R *.res}
 

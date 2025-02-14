@@ -51,7 +51,7 @@ constructor TModelService<T>.Create(Parent: T);
 begin
   FParent := Parent;
   FDataSource := TDataSource.Create(nil);
-  FConnection := TdmConnection.New;
+  FConnection := TModelConnection.New;
   FConn := FConnection.Conn;
   FDAO := TSimpleDAO<T>.New(FConn).DataSource(FDataSource);
 end;
