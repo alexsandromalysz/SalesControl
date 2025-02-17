@@ -17,7 +17,8 @@ uses
   View.Routers in 'src\View\Routers\View.Routers.pas',
   View.HomePage in 'src\View\View.HomePage.pas' {FrmHomePage},
   Model.Resources.Service in 'src\Model\Resources\Model.Resources.Service.pas',
-  Model.Resources.Connection in 'src\Model\Resources\Model.Resources.Connection.pas';
+  Model.Resources.Connection in 'src\Model\Resources\Model.Resources.Connection.pas',
+  View.Utils in 'src\View\View.Utils.pas';
 
 {$R *.res}
 

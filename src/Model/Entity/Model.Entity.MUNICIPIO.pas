@@ -21,13 +21,13 @@ Type
     constructor Create;
     destructor Destroy; override;
   published
-    [Campo('ID'), Pk, AutoInc]
+    [Campo('ID'), Pk, AutoInc, Display('Id.')]
     property ID: Integer read FID write SetID;
-    [Campo('NOME')]
+    [Campo('NOME'), Display('Nome')]
     property NOME: String read FNOME write SetNOME;
-    [Campo('CODIGO_IBGE')]
+    [Campo('CODIGO_IBGE'), Display('Cód. IBGE')]
     property CODIGO_IBGE: Integer read FCODIGO_IBGE write SetCODIGO_IBGE;
-    [Campo('UF')]
+    [Campo('UF'), Display('Estado')]
     property UF: string read FUF write SetUF;
   end;
 

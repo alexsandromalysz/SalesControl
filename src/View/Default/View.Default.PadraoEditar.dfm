@@ -4,14 +4,11 @@ inherited FrmPadraoEditar: TFrmPadraoEditar
   Caption = 'FrmPadraoEditar'
   ClientHeight = 400
   ClientWidth = 600
-  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 17
   inherited pnlMain: TPanel
     Width = 600
     Height = 400
-    ExplicitLeft = 0
-    ExplicitTop = 0
     ExplicitWidth = 600
     ExplicitHeight = 400
     object pnlOptions: TPanel

@@ -75,7 +75,7 @@ begin
     ID := AValue.PropString.ToInt64
   else if AValue.Key = 'Reload' then
     Reload := AValue.PropInteger.ToBoolean;
-  AValue.Free;
+  //AValue.Free;
   inherited;
 end;
 

@@ -11,9 +11,7 @@ inherited FrmMain: TFrmMain
     Left = 73
     Width = 511
     ExplicitLeft = 73
-    ExplicitTop = 0
     ExplicitWidth = 511
-    ExplicitHeight = 361
   end
   object pnlOptions: TPanel
     Left = 0
@@ -21,11 +19,14 @@ inherited FrmMain: TFrmMain
     Width = 73
     Height = 361
     Align = alLeft
+    BevelOuter = bvNone
+    Color = 15380648
+    ParentBackground = False
     TabOrder = 1
     object btnCliente: TSpeedButton
-      Left = 1
-      Top = 1
-      Width = 71
+      Left = 0
+      Top = 0
+      Width = 73
       Height = 64
       Action = actCliente
       Align = alTop
@@ -42,9 +43,9 @@ inherited FrmMain: TFrmMain
       ExplicitWidth = 63
     end
     object btnProduto: TSpeedButton
-      Left = 1
-      Top = 65
-      Width = 71
+      Left = 0
+      Top = 64
+      Width = 73
       Height = 64
       Action = actProduto
       Align = alTop
@@ -56,13 +57,14 @@ inherited FrmMain: TFrmMain
       Font.Style = [fsBold]
       Layout = blGlyphTop
       ParentFont = False
+      ExplicitLeft = 1
       ExplicitTop = 1
       ExplicitWidth = 63
     end
     object btnVenda: TSpeedButton
-      Left = 1
-      Top = 129
-      Width = 71
+      Left = 0
+      Top = 128
+      Width = 73
       Height = 64
       Action = actVenda
       Align = alTop
@@ -79,9 +81,9 @@ inherited FrmMain: TFrmMain
       ExplicitWidth = 63
     end
     object btnConfig: TSpeedButton
-      Left = 1
-      Top = 296
-      Width = 71
+      Left = 0
+      Top = 297
+      Width = 73
       Height = 64
       Action = actConfiguracao
       Align = alBottom
@@ -93,6 +95,7 @@ inherited FrmMain: TFrmMain
       Font.Style = [fsBold]
       Layout = blGlyphTop
       ParentFont = False
+      ExplicitLeft = 1
       ExplicitTop = 1
       ExplicitWidth = 63
     end
@@ -103,7 +106,7 @@ inherited FrmMain: TFrmMain
     Left = 361
     Top = 88
     Bitmap = {
-      494C010104000C00240020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104000C00280020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

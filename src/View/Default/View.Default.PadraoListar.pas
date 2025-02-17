@@ -32,6 +32,7 @@ type
   public
     { Public declarations }
     function GetID: Int64;
+    procedure AutoSizeColumns;
   end;
 
 var
@@ -44,6 +45,11 @@ implementation
 { TFrmPadraoListar }
 
 { TFrmPadraoListar }
+
+procedure TFrmPadraoListar.AutoSizeColumns;
+begin
+  Utils.AutoSizeDBGridColumns(dbgrdListar);
+end;
 
 function TFrmPadraoListar.GetID: Int64;
 begin

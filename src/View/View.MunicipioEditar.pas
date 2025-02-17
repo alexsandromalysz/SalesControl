@@ -24,12 +24,14 @@ uses
 
 type
   TFrmMunicipioEditar = class(TFrmPadraoEditar)
+    grpID: TGroupBox;
+    edtID: TMaskEdit;
     grpCodigoIBGE: TGroupBox;
+    edtCodigoIBGE: TMaskEdit;
     grpNome: TGroupBox;
     edtNome: TEdit;
     grpUF: TGroupBox;
     edtUF: TEdit;
-    edtCodigoIBGE: TMaskEdit;
     procedure FormCreate(Sender: TObject);
     procedure actConfirmarExecute(Sender: TObject);
     procedure actCancelarExecute(Sender: TObject);
@@ -88,6 +90,7 @@ begin
     Exit;
   end;
   FController.Municipio.Build.Selecionar(ID);
+  edtID.Text := FController.Municipio.ID.ToString;
   edtCodigoIBGE.Text := FController.Municipio.CodigoIBGE.ToString;
   edtNome.Text := FController.Municipio.Nome;
   edtUF.Text := FController.Municipio.UF;

@@ -31,6 +31,7 @@ inherited FrmMunicipioEditar: TFrmMunicipioEditar
     inherited pnlFormulario: TPanel
       Width = 500
       Height = 116
+      ExplicitTop = 29
       ExplicitWidth = 500
       ExplicitHeight = 116
       object grpCodigoIBGE: TGroupBox
@@ -47,9 +48,10 @@ inherited FrmMunicipioEditar: TFrmMunicipioEditar
           Height = 25
           Align = alClient
           Alignment = taCenter
-          AutoSelect = False
+          Ctl3D = True
           EditMask = '9999999;0;_'
           MaxLength = 7
+          ParentCtl3D = False
           TabOrder = 0
           Text = ''
           ExplicitWidth = 83
@@ -73,7 +75,7 @@ inherited FrmMunicipioEditar: TFrmMunicipioEditar
       end
       object grpUF: TGroupBox
         Left = 103
-        Top = 0
+        Top = 2
         Width = 70
         Height = 46
         Caption = 'UF:'
@@ -86,6 +88,28 @@ inherited FrmMunicipioEditar: TFrmMunicipioEditar
           Align = alClient
           CharCase = ecUpperCase
           TabOrder = 0
+        end
+      end
+      object grpID: TGroupBox
+        Left = 345
+        Top = 2
+        Width = 88
+        Height = 46
+        Caption = 'Id.'
+        TabOrder = 3
+        object edtID: TMaskEdit
+          Left = 2
+          Top = 19
+          Width = 84
+          Height = 25
+          TabStop = False
+          Align = alClient
+          Alignment = taCenter
+          AutoSelect = False
+          ReadOnly = True
+          TabOrder = 0
+          Text = ''
+          ExplicitWidth = 83
         end
       end
     end

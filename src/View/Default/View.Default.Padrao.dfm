@@ -11,8 +11,11 @@ object FrmPadrao: TFrmPadrao
   Font.Height = -13
   Font.Name = 'Segoe UI'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   Position = poScreenCenter
+  OnCreate = FormCreate
+  OnKeyPress = FormKeyPress
   PixelsPerInch = 96
   TextHeight = 17
   object pnlMain: TPanel
@@ -22,10 +25,8 @@ object FrmPadrao: TFrmPadrao
     Height = 361
     Align = alClient
     BevelOuter = bvNone
+    Color = 16115932
+    ParentBackground = False
     TabOrder = 0
-    ExplicitLeft = 48
-    ExplicitTop = 72
-    ExplicitWidth = 185
-    ExplicitHeight = 41
   end
 end

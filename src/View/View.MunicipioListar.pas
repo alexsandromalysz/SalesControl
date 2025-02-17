@@ -76,6 +76,7 @@ begin
   inherited;
   FController := TControllerMunicipio.New;
   dsListar.DataSet := FController.Municipio.Build.Listar;
+  AutoSizeColumns;
 end;
 
 end.

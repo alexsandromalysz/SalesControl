@@ -13,8 +13,6 @@ inherited FrmPadraoListar: TFrmPadraoListar
   inherited pnlMain: TPanel
     Width = 630
     Height = 391
-    ExplicitLeft = 0
-    ExplicitTop = 0
     ExplicitWidth = 630
     ExplicitHeight = 391
     object pnlOptions: TPanel
@@ -149,8 +147,9 @@ inherited FrmPadraoListar: TFrmPadraoListar
       Width = 630
       Height = 316
       Align = alClient
+      BorderStyle = bsNone
       DataSource = dsListar
-      Options = [dgTitles, dgColLines, dgRowLines, dgRowSelect]
+      Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgRowSelect]
       ParentShowHint = False
       ShowHint = False
       TabOrder = 1
