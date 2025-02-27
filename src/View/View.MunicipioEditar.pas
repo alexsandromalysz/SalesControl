@@ -35,7 +35,6 @@ type
     procedure FormCreate(Sender: TObject);
     procedure actConfirmarExecute(Sender: TObject);
     procedure actCancelarExecute(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
     FController: IControllerMunicipio;
@@ -72,12 +71,6 @@ begin
     .Salvar;
 
   ToView('MunicipioListar');
-end;
-
-procedure TFrmMunicipioEditar.Button1Click(Sender: TObject);
-begin
-  inherited;
-  Carregar;
 end;
 
 procedure TFrmMunicipioEditar.Carregar;

@@ -18,7 +18,15 @@ uses
   View.HomePage in 'src\View\View.HomePage.pas' {FrmHomePage},
   Model.Resources.Service in 'src\Model\Resources\Model.Resources.Service.pas',
   Model.Resources.Connection in 'src\Model\Resources\Model.Resources.Connection.pas',
-  View.Utils in 'src\View\View.Utils.pas';
+  View.Utils in 'src\View\View.Utils.pas',
+  Model.Entity.PRODUTO in 'src\Model\Entity\Model.Entity.PRODUTO.pas',
+  Model.Entity.CLIENTE in 'src\Model\Entity\Model.Entity.CLIENTE.pas',
+  Controller.Cliente.Interfaces in 'src\Controller\Controller.Cliente.Interfaces.pas',
+  Controller.Cliente in 'src\Controller\Controller.Cliente.pas',
+  Controller.Produto.Interfaces in 'src\Controller\Controller.Produto.Interfaces.pas',
+  Controller.Produto in 'src\Controller\Controller.Produto.pas',
+  View.ClienteListar in 'src\View\View.ClienteListar.pas' {FrmClienteListar},
+  View.ClienteEditar in 'src\View\View.ClienteEditar.pas' {FrmClienteEditar};
 
 {$R *.res}
 
@@ -28,5 +36,7 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TFrmMain, FrmMain);
   Application.CreateForm(TFrmHomePage, FrmHomePage);
+  Application.CreateForm(TFrmClienteListar, FrmClienteListar);
+  Application.CreateForm(TFrmClienteEditar, FrmClienteEditar);
   Application.Run;
 end.

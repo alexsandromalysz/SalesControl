@@ -31,7 +31,6 @@ inherited FrmMunicipioEditar: TFrmMunicipioEditar
     inherited pnlFormulario: TPanel
       Width = 500
       Height = 116
-      ExplicitTop = 29
       ExplicitWidth = 500
       ExplicitHeight = 116
       object grpCodigoIBGE: TGroupBox
@@ -54,7 +53,6 @@ inherited FrmMunicipioEditar: TFrmMunicipioEditar
           ParentCtl3D = False
           TabOrder = 0
           Text = ''
-          ExplicitWidth = 83
         end
       end
       object grpNome: TGroupBox
@@ -109,7 +107,6 @@ inherited FrmMunicipioEditar: TFrmMunicipioEditar
           ReadOnly = True
           TabOrder = 0
           Text = ''
-          ExplicitWidth = 83
         end
       end
     end

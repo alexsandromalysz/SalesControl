@@ -20,7 +20,9 @@ uses
   Router4D,
   View.HomePage,
   View.MunicipioListar,
-  View.MunicipioEditar;
+  View.MunicipioEditar,
+  View.ClienteListar,
+  View.ClienteEditar;
 
 
 { TRouters }
@@ -31,7 +33,9 @@ begin
     .Switch
       .Router('Home', TFrmHomePage)
       .Router('MunicipioListar', TFrmMunicipioListar)
-      .Router('MunicipioEditar', TFrmMunicipioEditar);
+      .Router('MunicipioEditar', TFrmMunicipioEditar)
+      .Router('ClienteListar', TFrmClienteListar)
+      .Router('ClienteEditar', TFrmClienteEditar);
 end;
 
 destructor TRouters.Destroy;

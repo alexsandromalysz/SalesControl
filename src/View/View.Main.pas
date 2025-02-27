@@ -59,7 +59,7 @@ uses
 procedure TFrmMain.actClienteExecute(Sender: TObject);
 begin
   inherited;
-  raise Exception.Create('Não implementado');
+  TRouter4D.Link.&To('ClienteListar');
 end;
 
 procedure TFrmMain.actConfiguracaoExecute(Sender: TObject);
