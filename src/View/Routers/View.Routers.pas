@@ -22,7 +22,9 @@ uses
   View.MunicipioListar,
   View.MunicipioEditar,
   View.ClienteListar,
-  View.ClienteEditar;
+  View.ClienteEditar,
+  View.ProdutoListar,
+  View.ProdutoEditar;
 
 
 { TRouters }
@@ -35,7 +37,9 @@ begin
       .Router('MunicipioListar', TFrmMunicipioListar)
       .Router('MunicipioEditar', TFrmMunicipioEditar)
       .Router('ClienteListar', TFrmClienteListar)
-      .Router('ClienteEditar', TFrmClienteEditar);
+      .Router('ClienteEditar', TFrmClienteEditar)
+      .Router('ProdutoListar', TFrmProdutoListar)
+      .Router('ProdutoEditar', TFrmProdutoEditar);
 end;
 
 destructor TRouters.Destroy;

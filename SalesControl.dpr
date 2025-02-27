@@ -26,7 +26,9 @@ uses
   Controller.Produto.Interfaces in 'src\Controller\Controller.Produto.Interfaces.pas',
   Controller.Produto in 'src\Controller\Controller.Produto.pas',
   View.ClienteListar in 'src\View\View.ClienteListar.pas' {FrmClienteListar},
-  View.ClienteEditar in 'src\View\View.ClienteEditar.pas' {FrmClienteEditar};
+  View.ClienteEditar in 'src\View\View.ClienteEditar.pas' {FrmClienteEditar},
+  View.ProdutoListar in 'src\View\View.ProdutoListar.pas' {FrmProdutoListar},
+  View.ProdutoEditar in 'src\View\View.ProdutoEditar.pas' {FrmProdutoEditar};
 
 {$R *.res}
 
@@ -38,5 +40,7 @@ begin
   Application.CreateForm(TFrmHomePage, FrmHomePage);
   Application.CreateForm(TFrmClienteListar, FrmClienteListar);
   Application.CreateForm(TFrmClienteEditar, FrmClienteEditar);
+  Application.CreateForm(TFrmProdutoListar, FrmProdutoListar);
+  Application.CreateForm(TFrmProdutoEditar, FrmProdutoEditar);
   Application.Run;
 end.

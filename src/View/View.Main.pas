@@ -77,7 +77,7 @@ end;
 procedure TFrmMain.actProdutoExecute(Sender: TObject);
 begin
   inherited;
-  raise Exception.Create('Não implementado');
+  TRouter4D.Link.&To('ProdutoListar');
 end;
 
 procedure TFrmMain.actVendaExecute(Sender: TObject);
