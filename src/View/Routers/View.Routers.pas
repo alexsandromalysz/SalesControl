@@ -24,7 +24,9 @@ uses
   View.ClienteListar,
   View.ClienteEditar,
   View.ProdutoListar,
-  View.ProdutoEditar;
+  View.ProdutoEditar,
+  View.VendaListar,
+  View.VendaEditar;
 
 
 { TRouters }
@@ -39,7 +41,9 @@ begin
       .Router('ClienteListar', TFrmClienteListar)
       .Router('ClienteEditar', TFrmClienteEditar)
       .Router('ProdutoListar', TFrmProdutoListar)
-      .Router('ProdutoEditar', TFrmProdutoEditar);
+      .Router('ProdutoEditar', TFrmProdutoEditar)
+      .Router('VendaListar', TFrmVendaListar)
+      .Router('VendaEditar', TFrmVendaEditar);
 end;
 
 destructor TRouters.Destroy;

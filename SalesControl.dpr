@@ -28,7 +28,15 @@ uses
   View.ClienteListar in 'src\View\View.ClienteListar.pas' {FrmClienteListar},
   View.ClienteEditar in 'src\View\View.ClienteEditar.pas' {FrmClienteEditar},
   View.ProdutoListar in 'src\View\View.ProdutoListar.pas' {FrmProdutoListar},
-  View.ProdutoEditar in 'src\View\View.ProdutoEditar.pas' {FrmProdutoEditar};
+  View.ProdutoEditar in 'src\View\View.ProdutoEditar.pas' {FrmProdutoEditar},
+  View.VendaEditar in 'src\View\View.VendaEditar.pas' {FrmVendaEditar},
+  Model.Entity.VENDA in 'src\Model\Entity\Model.Entity.VENDA.pas',
+  Controller.Venda.Interfaces in 'src\Controller\Controller.Venda.Interfaces.pas',
+  Controller.Venda in 'src\Controller\Controller.Venda.pas',
+  View.VendaListar in 'src\View\View.VendaListar.pas' {FrmVendaListar},
+  Model.Entity.VENDA_ITEM in 'src\Model\Entity\Model.Entity.VENDA_ITEM.pas',
+  Controller.VendaItem in 'src\Controller\Controller.VendaItem.pas',
+  Controller.VendaItem.Interfaces in 'src\Controller\Controller.VendaItem.Interfaces.pas';
 
 {$R *.res}
 
@@ -42,5 +50,7 @@ begin
   Application.CreateForm(TFrmClienteEditar, FrmClienteEditar);
   Application.CreateForm(TFrmProdutoListar, FrmProdutoListar);
   Application.CreateForm(TFrmProdutoEditar, FrmProdutoEditar);
+  Application.CreateForm(TFrmVendaEditar, FrmVendaEditar);
+  Application.CreateForm(TFrmVendaListar, FrmVendaListar);
   Application.Run;
 end.

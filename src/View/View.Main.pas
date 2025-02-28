@@ -83,7 +83,7 @@ end;
 procedure TFrmMain.actVendaExecute(Sender: TObject);
 begin
   inherited;
-  raise Exception.Create('Não implementado');
+  TRouter4D.Link.&To('VendaListar');
 end;
 
 procedure TFrmMain.FormCreate(Sender: TObject);
