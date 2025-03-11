@@ -13,9 +13,9 @@ uses
   Vcl.Forms,
   Vcl.Dialogs,
   Vcl.ExtCtrls,
+  Vcl.StdCtrls,
   Router4D,
   Router4D.Interfaces,
-  Router4D.Props,
   View.Utils;
 
 type
@@ -34,13 +34,9 @@ type
     procedure UnRender;
     procedure OnRender; virtual;
 
-    [Subscribe]
-    procedure Props (aValue : TProps); virtual;
-    procedure OnProps; virtual;
-
     procedure ToView(ARouter: string); overload;
     procedure ToView(ARouter: string; AID: Int64); overload;
-    procedure ToView(ARouter: string; AID: Int64; AReload: Boolean); overload;
+
   end;
 
 var
@@ -54,22 +50,15 @@ implementation
 
 procedure TFrmPadrao.ToView(ARouter: string);
 begin
+  ViewParams.Clear;
+  ViewParams.Values['id'] := '0';
   TRouter4D.Link.&To(ARouter);
 end;
 
 procedure TFrmPadrao.ToView(ARouter: string; AID: Int64);
 begin
-  TRouter4D.Link.&To(ARouter,
-    TProps.Create.PropString(AID.ToString).Key('ID'));
-end;
-
-procedure TFrmPadrao.ToView(ARouter: string; AID: Int64; AReload: Boolean);
-begin
-  TRouter4D.Link.&To(ARouter,
-    TProps.Create
-      .PropString(AID.ToString).Key('ID')
-      .PropInteger(AReload.ToInteger).Key('Reload')
-    );
+  ViewParams.Values['id'] := AID.ToString;
+  TRouter4D.Link.&To(ARouter);
 end;
 
 procedure TFrmPadrao.FormCreate(Sender: TObject);
@@ -87,21 +76,9 @@ begin
   end;
 end;
 
-procedure TFrmPadrao.OnProps;
-begin
-  {* Utilizar para processamento pós recebimento dos parâmetros no método Props *}
-end;
-
 procedure TFrmPadrao.OnRender;
 begin
   {* Utilizar para processamento pós rederização do Form no método Render *}
-end;
-
-procedure TFrmPadrao.Props(aValue: TProps);
-begin
-  OnProps;
-  if Assigned(aValue) then
-    aValue.DisposeOf;
 end;
 
 function TFrmPadrao.Render: TForm;

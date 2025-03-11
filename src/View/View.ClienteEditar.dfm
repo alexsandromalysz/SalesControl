@@ -7,7 +7,6 @@ inherited FrmClienteEditar: TFrmClienteEditar
       Caption = 'Cadastro de Cliente'
     end
     inherited pnlFormulario: TPanel
-      ExplicitTop = 29
       object grpNomeRazao: TGroupBox
         AlignWithMargins = True
         Left = 10
@@ -21,8 +20,6 @@ inherited FrmClienteEditar: TFrmClienteEditar
         Align = alTop
         Caption = 'Nome:'
         TabOrder = 0
-        ExplicitLeft = 0
-        ExplicitWidth = 600
         object edtNome: TEdit
           AlignWithMargins = True
           Left = 2
@@ -35,7 +32,6 @@ inherited FrmClienteEditar: TFrmClienteEditar
           Margins.Bottom = 0
           Align = alClient
           TabOrder = 0
-          ExplicitWidth = 420
           ExplicitHeight = 25
         end
       end
@@ -52,8 +48,6 @@ inherited FrmClienteEditar: TFrmClienteEditar
         Align = alTop
         Caption = 'Nome Fantasia:'
         TabOrder = 1
-        ExplicitLeft = 0
-        ExplicitWidth = 600
         object edtNomeFantasia: TEdit
           AlignWithMargins = True
           Left = 2
@@ -66,7 +60,6 @@ inherited FrmClienteEditar: TFrmClienteEditar
           Margins.Bottom = 0
           Align = alClient
           TabOrder = 0
-          ExplicitLeft = 12
           ExplicitHeight = 25
         end
       end
@@ -78,7 +71,6 @@ inherited FrmClienteEditar: TFrmClienteEditar
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 2
-        ExplicitTop = 92
         object grbNascimento: TGroupBox
           AlignWithMargins = True
           Left = 10
@@ -104,9 +96,6 @@ inherited FrmClienteEditar: TFrmClienteEditar
             Date = 45715.572368946760000000
             Time = 45715.572368946760000000
             TabOrder = 0
-            ExplicitLeft = 56
-            ExplicitTop = 29
-            ExplicitHeight = 25
           end
         end
         object grbCPF: TGroupBox
@@ -129,7 +118,6 @@ inherited FrmClienteEditar: TFrmClienteEditar
             Margins.Bottom = 0
             Align = alClient
             TabOrder = 0
-            ExplicitWidth = 115
             ExplicitHeight = 25
           end
         end
@@ -153,7 +141,6 @@ inherited FrmClienteEditar: TFrmClienteEditar
             Margins.Bottom = 0
             Align = alClient
             TabOrder = 0
-            ExplicitWidth = 287
             ExplicitHeight = 25
           end
         end
@@ -166,7 +153,6 @@ inherited FrmClienteEditar: TFrmClienteEditar
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 3
-        ExplicitTop = 137
         object grpEnderecoUF: TGroupBox
           AlignWithMargins = True
           Left = 10
@@ -180,9 +166,6 @@ inherited FrmClienteEditar: TFrmClienteEditar
           Align = alLeft
           Caption = 'Estado (UF):'
           TabOrder = 0
-          ExplicitLeft = 41
-          ExplicitTop = -4
-          ExplicitHeight = 45
           object cbbEnderecoUF: TComboBox
             AlignWithMargins = True
             Left = 2
@@ -224,7 +207,6 @@ inherited FrmClienteEditar: TFrmClienteEditar
               'RO'
               'RR'
               'SC')
-            ExplicitWidth = 164
           end
         end
         object grpMunicipio: TGroupBox
@@ -240,7 +222,6 @@ inherited FrmClienteEditar: TFrmClienteEditar
           Align = alLeft
           Caption = 'Munic'#237'pio'
           TabOrder = 1
-          ExplicitHeight = 41
           object cbbEnderecoMunicipio: TComboBox
             AlignWithMargins = True
             Left = 2
@@ -283,7 +264,6 @@ inherited FrmClienteEditar: TFrmClienteEditar
           Align = alLeft
           Caption = 'N'#250'mero:'
           TabOrder = 1
-          ExplicitLeft = 427
           object edtEnderecoNumero: TEdit
             AlignWithMargins = True
             Left = 2
@@ -296,8 +276,6 @@ inherited FrmClienteEditar: TFrmClienteEditar
             Margins.Bottom = 0
             Align = alClient
             TabOrder = 0
-            ExplicitLeft = 12
-            ExplicitWidth = 576
             ExplicitHeight = 25
           end
         end
@@ -326,7 +304,6 @@ inherited FrmClienteEditar: TFrmClienteEditar
             Margins.Bottom = 0
             Align = alClient
             TabOrder = 0
-            ExplicitWidth = 403
             ExplicitHeight = 25
           end
         end
@@ -364,7 +341,6 @@ inherited FrmClienteEditar: TFrmClienteEditar
             Margins.Bottom = 0
             Align = alClient
             TabOrder = 0
-            ExplicitWidth = 467
             ExplicitHeight = 25
           end
         end
@@ -393,7 +369,6 @@ inherited FrmClienteEditar: TFrmClienteEditar
             Margins.Bottom = 0
             Align = alClient
             TabOrder = 0
-            ExplicitWidth = 90
             ExplicitHeight = 25
           end
         end

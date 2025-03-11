@@ -8,7 +8,9 @@ uses
   System.Actions, Vcl.ActnList, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons,
   Vcl.ExtCtrls,
   Controller.Venda.Interfaces,
-  Controller.Venda;
+  Controller.Venda,
+  Controller.VendaItem.Interfaces,
+  Controller.VendaItem;
 
 type
   TFrmVendaListar = class(TFrmPadraoListar)
@@ -20,6 +22,7 @@ type
   private
     { Private declarations }
     FController: IControllerVenda;
+    FControllerItem: IControllerVendaItem;
   public
     { Public declarations }
   end;
@@ -40,7 +43,9 @@ end;
 procedure TFrmVendaListar.actExcluirExecute(Sender: TObject);
 begin
   inherited;
+  FControllerItem.Item.Build.Excluir('VENDA_ID', GetID.ToString).Listar;
   FController.Venda.Build.Excluir('ID', GetID.ToString).Listar;
+  AutoSizeColumns;
 end;
 
 procedure TFrmVendaListar.actFecharExecute(Sender: TObject);
@@ -59,6 +64,7 @@ procedure TFrmVendaListar.FormShow(Sender: TObject);
 begin
   inherited;
   FController := TControllerVenda.New;
+  FControllerItem := TControllerVendaItem.New;
   dsListar.DataSet := FController.Venda.Build.Listar;
   AutoSizeColumns;
 end;

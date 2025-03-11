@@ -15,7 +15,7 @@ uses
   Vcl.ExtCtrls,
   View.Default.Padrao,
   Router4D, System.Actions, Vcl.ActnList, Vcl.Buttons, System.ImageList,
-  Vcl.ImgList, Vcl.Menus;
+  Vcl.ImgList, Vcl.Menus, View.Utils;
 
 type
   TFrmMain = class(TFrmPadrao)
@@ -40,6 +40,7 @@ type
     procedure actVendaExecute(Sender: TObject);
     procedure actConfiguracaoExecute(Sender: TObject);
     procedure actMunicipioExecute(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
   public
@@ -89,7 +90,14 @@ end;
 procedure TFrmMain.FormCreate(Sender: TObject);
 begin
   inherited;
+  ViewParams := TStringList.Create;
   TRouter4D.Render<TFrmHomePage>.SetElement(pnlMain, pnlMain);
+end;
+
+procedure TFrmMain.FormDestroy(Sender: TObject);
+begin
+  inherited;
+  ViewParams.Free;
 end;
 
 end.

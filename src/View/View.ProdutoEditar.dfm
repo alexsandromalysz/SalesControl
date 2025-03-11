@@ -1,11 +1,11 @@
 inherited FrmProdutoEditar: TFrmProdutoEditar
   Caption = 'Cadastro de Produto'
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 17
   inherited pnlMain: TPanel
     inherited pnlHeader: TPanel
       Caption = 'Cadastro de Produto'
-      ExplicitTop = -6
     end
     inherited pnlFormulario: TPanel
       object grpDescricao: TGroupBox
@@ -44,9 +44,6 @@ inherited FrmProdutoEditar: TFrmProdutoEditar
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitLeft = 2
-        ExplicitTop = 0
-        ExplicitWidth = 576
         object grpCodigoBarras: TGroupBox
           AlignWithMargins = True
           Left = 10
@@ -72,7 +69,6 @@ inherited FrmProdutoEditar: TFrmProdutoEditar
             Margins.Bottom = 0
             Align = alClient
             TabOrder = 0
-            ExplicitWidth = 283
             ExplicitHeight = 25
           end
         end
@@ -102,8 +98,7 @@ inherited FrmProdutoEditar: TFrmProdutoEditar
             Align = alClient
             TabOrder = 0
             OnExit = edtPrecoVendaExit
-            ExplicitLeft = 4
-            ExplicitTop = 21
+            ExplicitHeight = 25
           end
         end
       end

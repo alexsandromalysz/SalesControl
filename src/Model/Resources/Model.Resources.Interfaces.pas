@@ -23,6 +23,8 @@ type
     function Excluir: iModelService<T>; overload;
     function Excluir(AField: string; AValue: string): iModelService<T>; overload;
     function DataSource(var ADataSource: TDataSource): iModelService<T>;
+    function GetLastID: int64;
+    function Pesquisar(AKey, AValue: string): TDataSet;
   end;
 
 implementation

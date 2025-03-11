@@ -30,6 +30,8 @@ type
     function Excluir: iModelService<T>; overload;
     function Excluir(AField: string; AValue: string): iModelService<T>; overload;
     function DataSource(var ADataSource: TDataSource): iModelService<T>;
+    function GetLastID: int64;
+    function Pesquisar(AKey, AValue: string): TDataSet;
   end;
 
 implementation
@@ -75,6 +77,17 @@ begin
   FDAO.Delete(AField, AValue);
 end;
 
+function TModelService<T>.GetLastID: int64;
+begin
+  FDAO
+    .SQL
+      .Fields('MAX(ID) AS ID')
+    .&End
+  .Find;
+  if not(FDataSource.DataSet = nil) and not FDataSource.DataSet.IsEmpty then
+    Result := FDataSource.DataSet.FieldByName('ID').AsLargeInt;
+end;
+
 function TModelService<T>.Excluir: iModelService<T>;
 begin
   Result := Self;
@@ -109,6 +122,16 @@ end;
 class function TModelService<T>.New(Parent: T): iModelService<T>;
 begin
   Result := Self.Create(Parent);
+end;
+
+function TModelService<T>.Pesquisar(AKey, AValue: string): TDataSet;
+begin
+  FDAO
+    .SQL
+      .Where(AKey + ' like ''%' + AValue + '%'' ')
+    .&End
+  .Find;
+  Result := FDataSource.DataSet;
 end;
 
 function TModelService<T>.Selecionar(AID: Int64): iModelService<T>;

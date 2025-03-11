@@ -35,13 +35,13 @@ type
     procedure FormCreate(Sender: TObject);
     procedure actConfirmarExecute(Sender: TObject);
     procedure actCancelarExecute(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     FController: IControllerMunicipio;
     procedure Carregar;
   public
     { Public declarations }
-    procedure OnProps; override;
   end;
 
 var
@@ -95,11 +95,10 @@ begin
   FController := TControllerMunicipio.New;
 end;
 
-procedure TFrmMunicipioEditar.OnProps;
+procedure TFrmMunicipioEditar.FormShow(Sender: TObject);
 begin
   inherited;
-  if Reload then
-    Carregar;
+  Carregar;
 end;
 
 end.

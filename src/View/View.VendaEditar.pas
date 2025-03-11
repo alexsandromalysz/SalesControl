@@ -3,7 +3,7 @@ unit View.VendaEditar;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, View.Default.PadraoEditar,
   System.Actions, Vcl.ActnList, Vcl.Buttons, Vcl.ExtCtrls, Vcl.StdCtrls,
   Data.DB, Vcl.Grids, Vcl.DBGrids,
@@ -14,7 +14,7 @@ uses
   Controller.Produto.Interfaces,
   Controller.Produto,
   Controller.Cliente.Interfaces,
-  Controller.Cliente;
+  Controller.Cliente, Vcl.DBCtrls, Vcl.ComCtrls;
 
 type
   TFrmVendaEditar = class(TFrmPadraoEditar)
@@ -30,13 +30,20 @@ type
     edtValorLiquido: TEdit;
     grpDesconto: TGroupBox;
     edtValorDesconto: TEdit;
-    grpCodigoBarras: TGroupBox;
-    edtCodigoBarras: TEdit;
     dsProduto: TDataSource;
     dsCliente: TDataSource;
     actExcluirItem: TAction;
     pnlExcluirItem: TPanel;
     btnExcluirItem: TSpeedButton;
+    pgcIncluir: TPageControl;
+    tsCodBarras: TTabSheet;
+    grpCodigoBarras: TGroupBox;
+    edtCodigoBarras: TEdit;
+    tsPesquisar: TTabSheet;
+    dbgrdProduto: TDBGrid;
+    edtPesquisar: TEdit;
+    btnIncluir: TButton;
+    actIncluirItem: TAction;
     procedure actCancelarExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure actConfirmarExecute(Sender: TObject);
@@ -44,6 +51,10 @@ type
     procedure edtClienteIdExit(Sender: TObject);
     procedure edtValorDescontoExit(Sender: TObject);
     procedure actExcluirItemExecute(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure edtPesquisarKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure actIncluirItemExecute(Sender: TObject);
   private
     { Private declarations }
     FController: IControllerVenda;
@@ -56,8 +67,6 @@ type
     procedure SalvarVenda;
   public
     { Public declarations }
-    procedure OnProps; override;
-
     property TotalItem: Currency read FTotalItem write FTotalItem;
   end;
 
@@ -77,6 +86,8 @@ end;
 procedure TFrmVendaEditar.actConfirmarExecute(Sender: TObject);
 begin
   inherited;
+  if (dsItem.DataSet = nil) or dsItem.DataSet.IsEmpty then
+    raise Exception.Create('Obrigatório incluir algum item.');
   SalvarVenda;
   ToView('VendaListar');
 end;
@@ -90,6 +101,28 @@ begin
   CarregarItens;
 end;
 
+procedure TFrmVendaEditar.actIncluirItemExecute(Sender: TObject);
+begin
+  inherited;
+  if dsProduto.DataSet.IsEmpty then
+    raise Exception.Create('Não há produto selecionado para incluir.');
+
+   if not(ID > 0) then
+    SalvarVenda;
+
+  FControllerItem.Item
+    .VendaId(FController.Venda.Id)
+    .ProdutoId(dsProduto.DataSet.FieldByName('ID').AsInteger)
+    .ProdutoDescricao(dsProduto.DataSet.FieldByName('DESCRICAO').AsString)
+    .PrecoVenda(dsProduto.DataSet.FieldByName('PRECO_VENDA').AsCurrency)
+    .Quantidade(1)
+    .ValorTotal(dsProduto.DataSet.FieldByName('PRECO_VENDA').AsCurrency)
+    .Salvar;
+
+  CarregarItens;
+  SalvarVenda;
+end;
+
 procedure TFrmVendaEditar.Carregar;
 begin
   if not(ID > 0) then
@@ -97,14 +130,16 @@ begin
     edtClienteId.Text := EmptyStr;
     edtClienteNome.Text := EmptyStr;
     mmoObservacao.Lines.Clear;
-    if not(dsItem.DataSet = nil) then
-      dsItem.DataSet.ClearFields;
+    edtValorDesconto.Text := '0.00';
+    edtValorLiquido.Text := '0.00';
     Exit;
   end;
   FController.Venda.Build.Selecionar(ID);
   edtClienteId.Text := FController.Venda.ClienteId.ToString;
   edtClienteNome.Text := FController.Venda.ClienteNome;
   mmoObservacao.Lines.Text := FController.Venda.Observacao;
+  edtValorDesconto.Text := FormatFloat('#########0.00', FController.Venda.ValorDesconto);
+  edtValorLiquido.Text := FormatFloat('#########0.00', FController.Venda.ValorLiquido);
 end;
 
 procedure TFrmVendaEditar.CarregarItens;
@@ -114,9 +149,6 @@ var
 begin
   TotalItem := 0;
   edtValorLiquido.Text := '0.00';
-  
-  if not(ID > 0) then
-    Exit;
   dsItem.DataSet := FControllerItem.Item.Build.ListarPorFiltro('VENDA_ID', ID);
   Utils.AutoSizeDBGridColumns(dbgrdListar);
   dsItem.DataSet.First;
@@ -129,7 +161,7 @@ begin
 
   vDesconto := StrToCurrDef(edtValorDesconto.Text,0);
   vTotalLiquido := TotalItem - vDesconto;
-  edtValorLiquido.Text := CurrToStr(vTotalLiquido);
+  edtValorLiquido.Text := FormatFloat('#########0.00', vTotalLiquido);;
 end;
 
 procedure TFrmVendaEditar.edtClienteIdExit(Sender: TObject);
@@ -137,6 +169,8 @@ var
   vID: Int64;
 begin
   inherited;
+  if not Utils.FormFocused(Self) then
+    Exit;
   vID := StrToInt64Def(edtClienteId.Text,0);
   edtClienteId.Text := vID.ToString;
   if not(vID > 0) then
@@ -146,7 +180,7 @@ begin
   begin
     ShowMessage('Não encontrado cliente com código: ' + vID.ToString);
     edtClienteId.Text := EmptyStr;
-    edtClienteId.SetFocus;
+    edtCodigoBarras.SetFocus;
   end;
   edtClienteNome.Text := dsCliente.DataSet.FieldByName('NOME_RAZAO').AsString
 end;
@@ -156,9 +190,9 @@ var
   vCodBarras: String;
 begin
   inherited;
-  if not(ID > 0) then
-    SalvarVenda;
-  
+  if not Utils.FormFocused(Self) then
+    Exit;
+
   vCodBarras := Trim(edtCodigoBarras.Text);
   if vCodBarras.IsEmpty then
     Exit;
@@ -167,10 +201,14 @@ begin
   begin
     ShowMessage('Não encontrado produto com código de barras: ' + vCodBarras);
     edtCodigoBarras.SetFocus;
+    Exit;
   end;
 
+  if not(ID > 0) then
+    SalvarVenda;
+
   FControllerItem.Item
-    .VendaId(ID)
+    .VendaId(FController.Venda.Id)
     .ProdutoId(dsProduto.DataSet.FieldByName('ID').AsInteger)
     .ProdutoDescricao(dsProduto.DataSet.FieldByName('DESCRICAO').AsString)
     .PrecoVenda(dsProduto.DataSet.FieldByName('PRECO_VENDA').AsCurrency)
@@ -181,6 +219,18 @@ begin
   edtCodigoBarras.Text := EmptyStr;
   edtCodigoBarras.SetFocus;
   CarregarItens;
+  SalvarVenda;
+end;
+
+procedure TFrmVendaEditar.edtPesquisarKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+var
+  vSearch: String;
+begin
+  inherited;
+  vSearch := edtPesquisar.Text;
+  dsProduto.DataSet := FControllerProduto.Produto.Build.Pesquisar('DESCRICAO', vSearch);
+  Utils.AutoSizeDBGridColumns(dbgrdProduto);
 end;
 
 procedure TFrmVendaEditar.edtValorDescontoExit(Sender: TObject);
@@ -188,22 +238,24 @@ var
   vDesconto: Currency;
 begin
   inherited;
+  if not Utils.FormFocused(Self) then
+    Exit;
   vDesconto := StrToCurrDef(Trim(edtValorDesconto.Text),0);
   if (vDesconto < 0) then
   begin
     ShowMessage('Desconto não pode ser inferior a zero.');
     edtValorDesconto.Text := '0.00';
-    edtValorLiquido.Text := CurrToStr(TotalItem);
+    edtValorLiquido.Text :=  FormatFloat('#########0.00', TotalItem);
     Exit;
   end;
-  edtValorDesconto.Text := CurrToStr(vDesconto);
+  edtValorDesconto.Text :=  FormatFloat('#########0.00', vDesconto);
   if (vDesconto > TotalItem) then
   begin
     ShowMessage('Desconto não pode ser maior que o total dos itens.');
-    edtValorDesconto.Text := '0.00'; 
-    edtValorLiquido.Text := CurrToStr(TotalItem); 
+    edtValorDesconto.Text := '0.00';
+    edtValorLiquido.Text :=  FormatFloat('#########0.00', TotalItem);
   end;
-  edtValorLiquido.Text := CurrToStr(TotalItem - vDesconto);
+  edtValorLiquido.Text :=  FormatFloat('#########0.00', (TotalItem - vDesconto));
 end;
 
 procedure TFrmVendaEditar.FormCreate(Sender: TObject);
@@ -215,21 +267,16 @@ begin
   FControllerCliente := TControllerCliente.New;
 end;
 
-procedure TFrmVendaEditar.OnProps;
+procedure TFrmVendaEditar.FormShow(Sender: TObject);
 begin
   inherited;
-  if Reload then
-  begin
-    Carregar;
-    CarregarItens;
-  end;
+  Carregar;
+  CarregarItens;
+  edtClienteId.SetFocus;
 end;
 
 procedure TFrmVendaEditar.SalvarVenda;
 begin
-  if (dsItem.DataSet = nil) or dsItem.DataSet.IsEmpty then
-    raise Exception.Create('Obrigatório incluir algum item.');
-
   FController.Venda
     .Id(ID)
     .ClienteId(StrToIntDef(edtClienteId.Text,0))
@@ -239,8 +286,7 @@ begin
     .ValorDesconto(StrToCurrDef(edtValorDesconto.Text,0))
     .ValorLiquido(StrToCurrDef(edtValorLiquido.Text,0))
     .Salvar;
-
-  ID := FController.Venda.Id;
+  ID := FController.Venda.ID;
 end;
 
 end.

@@ -47,6 +47,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure cbbEnderecoUFChange(Sender: TObject);
     procedure cbbEnderecoMunicipioChange(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     FController: IControllerCliente;
@@ -54,8 +55,6 @@ type
     procedure Carregar;
   public
     { Public declarations }
-    procedure OnProps; override;
-
     procedure CarregarMunicipios(AUF: String);
   end;
 
@@ -162,11 +161,10 @@ begin
   FControllerMunicipio := TControllerMunicipio.New;
 end;
 
-procedure TFrmClienteEditar.OnProps;
+procedure TFrmClienteEditar.FormShow(Sender: TObject);
 begin
   inherited;
-  if Reload then
-    Carregar;
+  Carregar;
 end;
 
 end.

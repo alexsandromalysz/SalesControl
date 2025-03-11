@@ -23,13 +23,13 @@ type
     procedure actConfirmarExecute(Sender: TObject);
     procedure actCancelarExecute(Sender: TObject);
     procedure edtPrecoVendaExit(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     FController: IControllerProduto;
     procedure Carregar;
   public
     { Public declarations }
-    procedure OnProps; override;
   end;
 
 var
@@ -91,12 +91,10 @@ begin
   FController := TControllerProduto.New;
 end;
 
-procedure TFrmProdutoEditar.OnProps;
+procedure TFrmProdutoEditar.FormShow(Sender: TObject);
 begin
   inherited;
-  inherited;
-  if Reload then
-    Carregar;
+  Carregar;
 end;
 
 end.

@@ -3,7 +3,12 @@ unit View.Utils;
 interface
 
 uses
-  Vcl.DBGrids;
+  Vcl.DBGrids,
+  System.Classes,
+  Forms;
+
+var
+  ViewParams: TStringList;
 
 type
 
@@ -11,6 +16,7 @@ type
     ['{80E00881-C3CA-4E29-91CE-583185BAA486}']
 
     procedure AutoSizeDBGridColumns(DBGrid: TDBGrid);
+    function FormFocused(AForm: TForm): Boolean;
   end;
 
   TUtils = class(TInterfacedObject, IUtils)
@@ -22,12 +28,16 @@ type
     class function New: IUtils;
 
     procedure AutoSizeDBGridColumns(DBGrid: TDBGrid);
+    function FormFocused(AForm: TForm): Boolean;
   end;
 
 implementation
 
 uses
-  Data.DB;
+  Data.DB,
+  System.SysUtils,
+  Windows,
+  Controls;
 
 { TUtils }
 
@@ -73,6 +83,16 @@ destructor TUtils.Destroy;
 begin
 
   inherited;
+end;
+
+function TUtils.FormFocused(AForm: TForm): Boolean;
+begin
+  if Screen.ActiveControl = nil then
+    Result := False
+  else
+  begin
+    Result := (Screen.ActiveControl = AForm) or AForm.ContainsControl(Screen.ActiveControl);
+  end;
 end;
 
 class function TUtils.New: IUtils;

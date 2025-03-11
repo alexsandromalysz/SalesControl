@@ -18,7 +18,7 @@ uses
   System.Actions,
   Vcl.ActnList,
   Vcl.ExtCtrls,
-  Router4D.Props;
+  View.Utils;
 
 type
   TFrmPadraoEditar = class(TFrmPadrao)
@@ -34,18 +34,15 @@ type
     pnlFormulario: TPanel;
     procedure FormCreate(Sender: TObject);
     procedure actConfirmarExecute(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     FCancelado: Boolean;
     FID: Int64;
-    FReload: Boolean;
     { Private declarations }
   public
     { Public declarations }
     property ID: Int64 read FID write FID;
-    property Reload: Boolean read FReload write FReload;
     property Cancelado: Boolean read FCancelado write FCancelado;
-
-    procedure Props (aValue : TProps); override;
   end;
 
 var
@@ -65,18 +62,13 @@ procedure TFrmPadraoEditar.FormCreate(Sender: TObject);
 begin
   inherited;
   ID := 0;
-  Reload := True;
   Cancelado := True;
 end;
 
-procedure TFrmPadraoEditar.Props(AValue: TProps);
+procedure TFrmPadraoEditar.FormShow(Sender: TObject);
 begin
-  if AValue.Key = 'ID' then
-    ID := AValue.PropString.ToInt64
-  else if AValue.Key = 'Reload' then
-    Reload := AValue.PropInteger.ToBoolean;
-  //AValue.Free;
   inherited;
+  ID := StrToInt64Def(ViewParams.Values['id'],0);
 end;
 
 end.

@@ -8,7 +8,8 @@ uses
   Model.Interfaces,
   Model.Entity.VENDA,
   Model.Resources.Interfaces,
-  Model.Resources.Service;
+  Model.Resources.Service,
+  SysUtils;
 
 type
   TVendaDTO = class(TInterfacedObject, IVendaDTO)
@@ -84,6 +85,7 @@ end;
 constructor TVendaDTO.Create;
 begin
   FEntity := TVENDA.Create;
+  FEntity.DATA_HORA := Date;
   FService := TModelService<TVENDA>.New(FEntity);
 end;
 
@@ -133,11 +135,13 @@ end;
 
 function TVendaDTO.Salvar: IVendaDTO;
 begin
-  Result := Self;
   if FEntity.ID > 0 then
     Build.Atualizar
   else
+  begin
     Build.Inserir;
+    FEntity.ID := Build.GetLastID; // ORM não atualiza ID autoinc no insert
+  end;
 end;
 
 function TVendaDTO.ValorDesconto: currency;
